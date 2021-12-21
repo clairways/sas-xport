@@ -5,23 +5,23 @@ frameworkVersion: '2'
 
 provider:
   name: aws
-  runtime: python3.8
+  runtime: python3.9
   lambdaHashingVersion: 20201221
 
 #  stage: dev
 #  region: us-east-1
 
-iam:
-  role:
-    statements:
-      - Effect: "Allow"
-        Action:
-          - "s3:ListBucket"
-          - "s3:PutObject"
-          - "s3:GetObject"
-          - "s3:GetObjectAcl"      
-        Resource:
-          - "arn:aws:s3:::clairways-xport-convert/*"
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "s3:ListBucket"
+            - "s3:PutObject"
+            - "s3:GetObject"
+            - "s3:GetObjectAcl"      
+          Resource:
+            - "arn:aws:s3:::clairways-xport-convert/*"
 
 functions:
   sasconvert: # A function to convert csv files to SAS XPT format
