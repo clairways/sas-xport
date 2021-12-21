@@ -24,7 +24,7 @@ def convert(event, context):
 
     # Load csv file from S3
     try :
-        obj = s3r.Object(bucket,{key})
+        obj = s3r.Object(bucket,key)
         df  = pd.read_csv(obj.get()['Body'])
     except Exception as e:
         log.info(f"Error getting object {key} from bucket {bucket}.")
@@ -40,11 +40,12 @@ def convert(event, context):
     library = xport.Library({'DATA': ds})
 
     dst = f"{Path(key).stem}.xpt"
-    with open(dst,'wb') as f:
+    out = f"/tmp/{dst}"
+    with open(out,'wb') as f:
         xport.v56.dump(library,f)
 
     # Upload to S3
-    s3.upload_file(Filename=dst,
+    s3.upload_file(Filename=out,
                    Bucket=bucket,
                    Key=f'output/{dst}')
     log.info(f"✅ Execution complete. Files uploaded to s3 path: output/{dst}.")

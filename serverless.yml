@@ -5,7 +5,7 @@ frameworkVersion: '2'
 
 provider:
   name: aws
-  runtime: python3.9
+  runtime: python3.8
   lambdaHashingVersion: 20201221
 
 #  stage: dev
@@ -44,3 +44,5 @@ plugins:
 custom:
   pythonRequirements:
     dockerizePip: non-linux
+    useDownloadCache: false
+    useStaticCache: false
